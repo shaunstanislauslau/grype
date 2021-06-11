@@ -26,7 +26,7 @@ func (s *mockStore) GetVulnerability(namespace, name string) ([]db.Vulnerability
 func TestMatches(t *testing.T) {
 	store := mockStore{
 		backend: map[string]map[string][]db.Vulnerability{
-			"microsoft": {
+			"msrc": {
 				"Windows 10 Versions 1903 for ARM64-based Systems": []db.Vulnerability{
 					{
 						ID:                "CVE-2020-1",

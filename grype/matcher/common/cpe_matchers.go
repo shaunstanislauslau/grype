@@ -77,6 +77,7 @@ func FindMatchesByPackageCPE(store vulnerability.ProviderByCPE, p pkg.Package, u
 		// for each vulnerability record found, check the version constraint. If the constraint is satisfied
 		// relative to the current version information from the CPE (or the package) then the given package
 		// is vulnerable.
+		var foundMatch bool
 		for _, vuln := range allPkgVulns {
 			isPackageVulnerable, err := vuln.Constraint.Satisfied(searchVersionObj)
 			if err != nil {
@@ -88,6 +89,12 @@ func FindMatchesByPackageCPE(store vulnerability.ProviderByCPE, p pkg.Package, u
 			}
 
 			addNewMatch(matchesByFingerprint, vuln, p, *searchVersionObj, upstreamMatcher, cpe)
+			foundMatch = true
+		}
+
+		// on the first search hit, bail
+		if foundMatch {
+			break
 		}
 	}
 

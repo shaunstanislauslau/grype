@@ -26,6 +26,14 @@ func (m *Matcher) Type() match.MatcherType {
 func (m *Matcher) Match(store vulnerability.Provider, d *distro.Distro, p pkg.Package) ([]match.Match, error) {
 	var matches = make([]match.Match, 0)
 
+	// TODO: DELETE THIS LINE BEFORE COMMIT
+	// matching against the source package information will result in fewer False Negatives/more True Positives
+	sourceMatches, err := m.matchBySourceIndirection(store, d, p)
+	if err != nil {
+		return nil, fmt.Errorf("failed to match by source indirection: %w", err)
+	}
+	matches = append(matches, sourceMatches...)
+
 	// find Alpine SecDB matches for the given package name and version
 	secDbMatches, err := common.FindMatchesByPackageDistro(store, d, p, m.Type())
 	if err != nil {
@@ -119,12 +127,50 @@ func deduplicateMatches(secDbMatches, cpeMatches []match.Match) (matches []match
 	return matches
 }
 
+
 func matchesByID(matches []match.Match) map[string][]match.Match {
 	var results = make(map[string][]match.Match)
 	for _, secDbMatch := range matches {
 		results[secDbMatch.Vulnerability.ID] = append(results[secDbMatch.Vulnerability.ID], secDbMatch)
 	}
 	return results
+}
+
+func (m *Matcher) matchBySourceIndirection(store vulnerability.ProviderByDistro, d *distro.Distro, p pkg.Package) ([]match.Match, error) {
+	metadata, ok := p.Metadata.(pkg.Apk)
+	if !ok {
+		return nil, nil
+	}
+
+	// ignore packages without source indirection hints
+	if metadata.Source == "" {
+		return []match.Match{}, nil
+	}
+
+	// use source package name for exact package name matching
+	var indirectPackage pkg.Package
+
+	err := copier.Copy(&indirectPackage, p)
+	if err != nil {
+		return nil, fmt.Errorf("failed to copy package: %w", err)
+	}
+
+	// use the source package name
+	indirectPackage.Name = metadata.Source
+
+	matches, err := common.FindMatchesByPackageDistro(store, d, indirectPackage, m.Type())
+	if err != nil {
+		return nil, fmt.Errorf("failed to find vulnerabilities by dpkg source indirection: %w", err)
+	}
+
+	// we want to make certain that we are tracking the match based on the package from the SBOM (not the indirect package)
+	// however, we also want to keep the indirect package around for future reference
+	for idx := range matches {
+		matches[idx].Type = match.ExactIndirectMatch
+		matches[idx].Package = p
+	}
+
+	return matches, nil
 }
 
 func vulnerabilitiesByID(vulns []vulnerability.Vulnerability) map[string][]vulnerability.Vulnerability {

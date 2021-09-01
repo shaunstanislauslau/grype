@@ -1,49 +1,17 @@
-package dpkg
+package common
 
 import (
 	"fmt"
-
 	syftPkg "github.com/anchore/syft/syft/pkg"
-
 	"github.com/anchore/grype/grype/match"
-	"github.com/anchore/grype/grype/matcher/common"
 	"github.com/anchore/grype/grype/pkg"
 	"github.com/anchore/grype/grype/vulnerability"
 	"github.com/anchore/syft/syft/distro"
 	"github.com/jinzhu/copier"
 )
 
-type Matcher struct {
-}
 
-func (m *Matcher) PackageTypes() []syftPkg.Type {
-	return []syftPkg.Type{syftPkg.DebPkg}
-}
-
-func (m *Matcher) Type() match.MatcherType {
-	return match.DpkgMatcher
-}
-
-func (m *Matcher) Match(store vulnerability.Provider, d *distro.Distro, p pkg.Package) ([]match.Match, error) {
-	matches := make([]match.Match, 0)
-
-	sourceMatches, err := common.MatchBySourceIndirection(store, d, p, m.Type())
-	if err != nil {
-		return nil, fmt.Errorf("failed to match by source indirection: %w", err)
-	}
-	matches = append(matches, sourceMatches...)
-
-	exactMatches, err := common.FindMatchesByPackageDistro(store, d, p, m.Type())
-	if err != nil {
-		return nil, fmt.Errorf("failed to match by exact package name: %w", err)
-	}
-	matches = append(matches, exactMatches...)
-
-	return matches, nil
-}
-
-/*
-func (m *Matcher) matchBySourceIndirection(store vulnerability.ProviderByDistro, d *distro.Distro, p pkg.Package) ([]match.Match, error) {
+func MatchBySourceIndirection(store vulnerability.ProviderByDistro, d *distro.Distro, p pkg.Package, upstreamMatcher match.MatcherType) ([]match.Match, error) {
 	metadata, ok := p.Metadata.(pkg.DpkgMetadata)
 	if !ok {
 		return nil, nil
@@ -65,7 +33,7 @@ func (m *Matcher) matchBySourceIndirection(store vulnerability.ProviderByDistro,
 	// use the source package name
 	indirectPackage.Name = metadata.Source
 
-	matches, err := common.FindMatchesByPackageDistro(store, d, indirectPackage, m.Type())
+	matches, err := FindMatchesByPackageDistro(store, d, indirectPackage, upstreamMatcher)
 	if err != nil {
 		return nil, fmt.Errorf("failed to find vulnerabilities by dpkg source indirection: %w", err)
 	}
@@ -79,4 +47,4 @@ func (m *Matcher) matchBySourceIndirection(store vulnerability.ProviderByDistro,
 
 	return matches, nil
 }
-*/
+

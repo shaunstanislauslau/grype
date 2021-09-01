@@ -1,6 +1,7 @@
 package apk
 
 import (
+	"github.com/anchore/grype/internal"
 	"testing"
 
 	grypeDB "github.com/anchore/grype-db/pkg/db/v3"
@@ -427,5 +428,47 @@ func TestNvdMatchesNoConstraintWithSecDBFix(t *testing.T) {
 
 	for _, diff := range deep.Equal(expected, actual) {
 		t.Errorf("diff: %+v", diff)
+	}
+}
+
+func TestMatcherApk_matchBySourceIndirection(t *testing.T) {
+	matcher := Matcher{}
+	p := pkg.Package{
+		Name:    "neutron",
+		Version: "2014.1.3-6",
+		Type:    syftPkg.ApkPkg,
+		Metadata: pkg.ApkMetadata{
+			Source: "neutron-devel",
+		},
+	}
+
+	d, err := distro.NewDistro(distro.Alpine, "3.12.0", "")
+	if err != nil {
+		t.Fatal("could not create distro: ", err)
+	}
+
+	store := newMockProvider()
+	actual, err := matcher.matchBySourceIndirection(store, &d, p)
+
+	assert.Len(t, actual, 2, "unexpected indirect matches count")
+
+	foundCVEs := internal.NewStringSet()
+	for _, a := range actual {
+		foundCVEs.Add(a.Vulnerability.ID)
+
+		assert.Equal(t, match.ExactIndirectMatch, a.Type, "indirect match not indicated")
+		assert.Equal(t, p.Name, a.Package.Name, "failed to capture original package name")
+		for _, detail := range a.MatchDetails {
+			assert.Equal(t, matcher.Type(), detail.Matcher, "failed to capture matcher type")
+		}
+	}
+
+	for _, id := range []string{"CVE-2014-fake-2", "CVE-2013-fake-3"} {
+		if !foundCVEs.Contains(id) {
+			t.Errorf("missing discovered CVE: %s", id)
+		}
+	}
+	if t.Failed() {
+		t.Logf("discovered CVES: %+v", foundCVEs)
 	}
 }

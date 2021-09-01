@@ -13,6 +13,7 @@ const (
 	RpmFormat
 	PythonFormat
 	KBFormat
+	ApkFormat
 )
 
 type Format int
@@ -24,6 +25,7 @@ var formatStr = []string{
 	"RPM",
 	"Python",
 	"KB",
+	"Apk",
 }
 
 var Formats = []Format{
@@ -32,6 +34,7 @@ var Formats = []Format{
 	RpmFormat,
 	PythonFormat,
 	KBFormat,
+	ApkFormat,
 }
 
 func ParseFormat(userStr string) Format {
@@ -46,7 +49,10 @@ func ParseFormat(userStr string) Format {
 		return PythonFormat
 	case strings.ToLower(KBFormat.String()), "kb":
 		return KBFormat
+	case strings.ToLower(ApkFormat.String()), "apk":
+		return KBFormat
 	}
+
 	return UnknownFormat
 }
 
@@ -63,6 +69,8 @@ func FormatFromPkgType(t pkg.Type) Format {
 		format = PythonFormat
 	case pkg.KbPkg:
 		format = KBFormat
+	case pkg.ApkPkg:
+		format = ApkFormat
 	default:
 		format = UnknownFormat
 	}

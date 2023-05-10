@@ -174,11 +174,8 @@ github.com/anchore/go-version v1.2.2-0.20210903204242-51efa5b487c4 h1:rmZG77uXgE
 github.com/anchore/go-version v1.2.2-0.20210903204242-51efa5b487c4/go.mod h1:Bkc+JYWjMCF8OyZ340IMSIi2Ebf3uwByOk6ho4wne1E=
 github.com/anchore/grype v0.14.1-0.20210702143224-05ade7bbbf70/go.mod h1:yPh9WHflzInB/INwPrDs2wLKmRsa8owAuojmv4K8H6I=
 github.com/anchore/grype v0.24.2-0.20211115221156-a2762bbbf043/go.mod h1:/MP3vfuCUqCfBSrXymncltcJNd8/dn85rXGtJdR83Ks=
-github.com/anchore/grype v0.24.2-0.20211115221156-a2762bbbf043/go.mod h1:/MP3vfuCUqCfBSrXymncltcJNd8/dn85rXGtJdR83Ks=
 github.com/anchore/grype v0.26.1/go.mod h1:J+PyGkd2Tr/8tjyMgK5Z5j/OAY1KntYnLZZOkY3A9Dc=
 github.com/anchore/grype-db v0.0.0-20210527140125-6f881b00e927/go.mod h1:XSlPf1awNrMpah+rHbWrzgUvnmWLgn/KkdicxERVClg=
-github.com/anchore/grype-db v0.0.0-20210527140125-6f881b00e927/go.mod h1:XSlPf1awNrMpah+rHbWrzgUvnmWLgn/KkdicxERVClg=
-github.com/anchore/grype-db v0.0.0-20210928194208-f146397d6cd0/go.mod h1:GniMuMokZ2iAX67Qrd5fJW7BstX8a+4U48LyypGC2g0=
 github.com/anchore/grype-db v0.0.0-20210928194208-f146397d6cd0/go.mod h1:GniMuMokZ2iAX67Qrd5fJW7BstX8a+4U48LyypGC2g0=
 github.com/anchore/grype-db v0.0.0-20211119195714-911ff7162dc6/go.mod h1:/sgH+Lxc8E6wHQt1w64336mWr8QWrt0yjcRsriijIkg=
 github.com/anchore/grype-db v0.0.0-20211207213615-1bcbb779ee96 h1:Jsv3lw2xQpFYFEARz7Il6uxXWMIS9fQR4b7p4ceGopI=
@@ -193,7 +190,6 @@ github.com/anchore/stereoscope v0.0.0-20211203160213-5a5e323a5c89/go.mod h1:FNm1
 github.com/anchore/syft v0.19.0/go.mod h1:ktWx72/MizsN9jgEh+Vzl9lfNIUC8tylQHk3ZjKehn0=
 github.com/anchore/syft v0.23.0/go.mod h1:sr+rUnzPjdf97YUwZrbeuD8sebS5VsAZVTp6nXsjOWo=
 github.com/anchore/syft v0.30.1/go.mod h1:7YlGmGFP/GlfNn80TDN1jFcosZqHBKCnrpwfiRXiCuQ=
-github.com/anchore/syft v0.31.0/go.mod h1:ZHM2Brl5yU8qM6YuXLRxm4UXCMSWQdd78S0eKnVm1Uw=
 github.com/anchore/syft v0.31.0/go.mod h1:ZHM2Brl5yU8qM6YuXLRxm4UXCMSWQdd78S0eKnVm1Uw=
 github.com/anchore/syft v0.31.1-0.20211207205931-7a359dc16be8/go.mod h1:6tuVZBaHohcTuX8S0G6S80o/6PmzoF7sHbjxDUJaLjU=
 github.com/anchore/syft v0.32.2 h1:3xeuAzR6m7iHzMvA9KvxzMTGVZAqScfhDyii//dsHSQ=
@@ -323,7 +319,6 @@ github.com/containerd/containerd v1.5.0-beta.4/go.mod h1:GmdgZd2zA2GYIBZ0w09Zvgq
 github.com/containerd/containerd v1.5.0-rc.0/go.mod h1:V/IXoMqNGgBlabz3tHD2TWDoTJseu1FGOKuoA4nNb2s=
 github.com/containerd/containerd v1.5.1/go.mod h1:0DOxVqwDy2iZvrZp2JUx/E+hS0UNTVn7dJnIOwtYR4g=
 github.com/containerd/containerd v1.5.7/go.mod h1:gyvv6+ugqY25TiXxcZC3L5yOeYgEw0QMhscqVp1AR9c=
-github.com/containerd/containerd v1.5.8 h1:NmkCC1/QxyZFBny8JogwLpOy2f+VEbO/f6bV2Mqtwuw=
 github.com/containerd/containerd v1.5.8/go.mod h1:YdFSv5bTFLpG2HIYmfqDpSYYTDX+mc5qtSuYx1YUb/s=
 github.com/containerd/continuity v0.0.0-20190426062206-aaeac12a7ffc/go.mod h1:GL3xCUCBDV3CZiTSEKksMWbLE66hEyuu9qyDOOqM47Y=
 github.com/containerd/continuity v0.0.0-20190815185530-f2a389ac0a02/go.mod h1:GL3xCUCBDV3CZiTSEKksMWbLE66hEyuu9qyDOOqM47Y=
@@ -430,8 +425,9 @@ github.com/docker/docker v0.7.3-0.20190327010347-be7ac8be2ae0/go.mod h1:eEKB0N0r
 github.com/docker/docker v1.4.2-0.20190924003213-a8608b5b67c7/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
 github.com/docker/docker v17.12.0-ce-rc1.0.20200309214505-aa6a9891b09c+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
 github.com/docker/docker v20.10.10+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
-github.com/docker/docker v20.10.11+incompatible h1:OqzI/g/W54LczvhnccGqniFoQghHx3pklbLuhfXpqGo=
 github.com/docker/docker v20.10.11+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
+github.com/docker/docker v20.10.24+incompatible h1:Ugvxm7a8+Gz6vqQYQQ2W7GYq5EUPaAiuPgIfVyI3dYE=
+github.com/docker/docker v20.10.24+incompatible/go.mod h1:eEKB0N0r5NX/I1kEveEz05bcu8tLC/8azJZsviup8Sk=
 github.com/docker/docker-credential-helpers v0.6.3/go.mod h1:WRaJzqw3CTB9bk10avuGsjVBZsD05qeibJ1/TYlvc0Y=
 github.com/docker/docker-credential-helpers v0.6.4 h1:axCks+yV+2MR3/kZhAmy07yC56WZ2Pwu/fKWtKuZB0o=
 github.com/docker/docker-credential-helpers v0.6.4/go.mod h1:ofX3UI0Gz1TteYBjtgs07O36Pyasyp66D2uKT7H8W1c=
@@ -691,7 +687,6 @@ github.com/goreleaser/nfpm v1.3.0/go.mod h1:w0p7Kc9TAUgWMyrub63ex3M2Mgw88M4GZXoT
 github.com/gorilla/handlers v0.0.0-20150720190736-60c7bfde3e33/go.mod h1:Qkdc/uu4tH4g6mTK6auzZ766c4CA0Ng8+o/OAirnOIQ=
 github.com/gorilla/mux v1.7.2/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
 github.com/gorilla/mux v1.7.3/go.mod h1:1lud6UwP+6orDFRuTfBEV8e9/aOM/c4fVVCaMa2zaAs=
-github.com/gorilla/mux v1.8.0 h1:i40aqfkR1h2SlN9hojwV5ZA91wcXFOvkdNIeFDP5koI=
 github.com/gorilla/mux v1.8.0/go.mod h1:DVbg23sWSpFRCP0SfiEN6jmj59UnW/n46BH5rLB71So=
 github.com/gorilla/websocket v0.0.0-20170926233335-4201258b820c/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
 github.com/gorilla/websocket v1.4.0/go.mod h1:E7qHFY5m1UJ88s3WnNqhKjPHQ0heANvMoAMk2YaljkQ=
